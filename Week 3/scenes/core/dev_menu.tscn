@@ -1,0 +1,141 @@
+[gd_scene load_steps=4 format=3 uid="uid://5opi0hj7ivqu"]
+
+[ext_resource type="Script" path="res://scripts/core/devMenu.gd" id="1_w6c0j"]
+[ext_resource type="Script" path="res://scripts/core/jsonSave.gd" id="2_i0d5v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dis2q"]
+
+[node name="DevMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_w6c0j")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(350, 267)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 340.0
+offset_bottom = 257.0
+
+[node name="Health" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Health"]
+layout_mode = 2
+text = "hp                          "
+label_settings = SubResource("LabelSettings_dis2q")
+
+[node name="HealthSlider" type="HSlider" parent="Panel/VBoxContainer/Health"]
+custom_minimum_size = Vector2(148, 0)
+layout_mode = 2
+value = 100.0
+rounded = true
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/Health"]
+layout_mode = 2
+text = "100
+"
+
+[node name="Invulnerable" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Invulnerable"]
+layout_mode = 2
+text = "invulnerable       "
+label_settings = SubResource("LabelSettings_dis2q")
+
+[node name="InvSlider" type="HSlider" parent="Panel/VBoxContainer/Invulnerable"]
+custom_minimum_size = Vector2(148, 0)
+layout_mode = 2
+max_value = 1.0
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/Invulnerable"]
+layout_mode = 2
+text = "0
+"
+
+[node name="RegenSpeed" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/RegenSpeed"]
+layout_mode = 2
+text = "regenSpeed         "
+label_settings = SubResource("LabelSettings_dis2q")
+
+[node name="regSpdSlider" type="HSlider" parent="Panel/VBoxContainer/RegenSpeed"]
+custom_minimum_size = Vector2(148, 0)
+layout_mode = 2
+max_value = 60.0
+value = 10.0
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/RegenSpeed"]
+layout_mode = 2
+text = "10
+"
+
+[node name="RegenValue" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/RegenValue"]
+layout_mode = 2
+text = "regenValue          "
+label_settings = SubResource("LabelSettings_dis2q")
+
+[node name="regValSlider" type="HSlider" parent="Panel/VBoxContainer/RegenValue"]
+custom_minimum_size = Vector2(148, 0)
+layout_mode = 2
+value = 20.0
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/RegenValue"]
+layout_mode = 2
+text = "20
+"
+
+[node name="MovementSpeed" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/MovementSpeed"]
+layout_mode = 2
+text = "movementSpeed"
+label_settings = SubResource("LabelSettings_dis2q")
+
+[node name="moveSpdSlider" type="HSlider" parent="Panel/VBoxContainer/MovementSpeed"]
+custom_minimum_size = Vector2(148, 0)
+layout_mode = 2
+max_value = 500.0
+value = 100.0
+
+[node name="Value" type="Label" parent="Panel/VBoxContainer/MovementSpeed"]
+layout_mode = 2
+text = "100
+"
+
+[node name="SaveButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Load"
+
+[node name="JsonSave" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_i0d5v")
+
+[connection signal="value_changed" from="Panel/VBoxContainer/Health/HealthSlider" to="." method="_on_health_slider_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/Invulnerable/InvSlider" to="." method="_on_inv_slider_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/RegenSpeed/regSpdSlider" to="." method="_on_reg_spd_slider_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/RegenValue/regValSlider" to="." method="_on_reg_val_slider_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/MovementSpeed/moveSpdSlider" to="." method="_on_move_spd_slider_value_changed"]
+[connection signal="pressed" from="Panel/VBoxContainer/SaveButton" to="JsonSave" method="save_json"]
+[connection signal="pressed" from="Panel/VBoxContainer/LoadButton" to="JsonSave" method="load_json"]
